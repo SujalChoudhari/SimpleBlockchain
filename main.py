@@ -13,7 +13,9 @@ class Block:
         return hashlib.sha256((str(self.id) + self.date + self.data +
                                self.previousHash).encode("utf-8")).hexdigest()
 
-        
+    def __repr__(self):
+        result = f" [{self.date}, {self.data}] "
+        return result
 
 
 class Blockchain:
@@ -25,10 +27,21 @@ class Blockchain:
         block = Block(id, date, data, self.chain[-1].hash)
         self.chain.append(block)
 
+    def __repr__(self):
+        result = ""
+        for block in self.chain:
+            result += "->"
+            result += block.__repr__()
+        return result
 
 test = Blockchain("8/7/2022")
 test.createBlock(1,"8/7/22","Test")
+test.createBlock(2,"8/7/22","Test2")
+test.createBlock(3,"10/7/22","Test3")
+test.createBlock(4,"11/7/22","Test4")
+test.createBlock(5,"8/8/22","Test5")
+test.createBlock(6,"8/9/22","Test6")
 
-
+print(test)
 
 
